@@ -1,0 +1,16 @@
+version: "3.8"
+services:  
+  mysql-db:
+    image: mysql:8.0.29
+    volumes:
+       - ./mysql_data:/var/lib/mysql
+    ports:
+      - "3388:3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: sampledb
+      MYSQL_USER: dbuser
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: 'JECCHuPWg6eRQVBr'
+      MYSQL_RANDOM_ROOT_PASSWORD: 'BtJLc96DWwS3Hjxq'
+      
