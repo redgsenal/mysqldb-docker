@@ -1,16 +1,30 @@
-version: "3.8"
 services:  
-  mysql-db:
+  mysqldb:
     image: mysql:8.0.29
-    volumes:
-       - ./mysql_data:/var/lib/mysql
+    container_name: mysql
     ports:
-      - "3388:3306"
-    restart: always
+      - '3306:3306'
+    restart: 'no'
     environment:
       MYSQL_DATABASE: sampledb
       MYSQL_USER: dbuser
-      MYSQL_PASSWORD: password
+      MYSQL_PASSWORD: password      
+      MYSQL_ROOT_PASSWORD: JECCHuPWg6eRQVBr
+    networks:
+      - mydbnet
+  phpmyadmin:
+    depends_on:
+      - mysqldb
+    image: phpmyadmin/phpmyadmin
+    restart: 'no'
+    ports:
+    - '8086:80'
+    environment:
+      PMA_HOST: 'mysqldb'
+      PMA_USER: 'root'
+      PMA_PASSWORD: 'JECCHuPWg6eRQVBr'
       MYSQL_ROOT_PASSWORD: 'JECCHuPWg6eRQVBr'
-      MYSQL_RANDOM_ROOT_PASSWORD: 'BtJLc96DWwS3Hjxq'
-      
+    networks:
+      - mydbnet
+networks:
+  mydbnet:
